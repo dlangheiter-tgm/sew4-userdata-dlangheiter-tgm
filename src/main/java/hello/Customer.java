@@ -1,8 +1,8 @@
 package hello;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 public class Customer {
@@ -15,12 +15,30 @@ public class Customer {
 
 	private String lastName;
 
+	@NotNull
+	private String email;
+
+	@Temporal(TemporalType.DATE)
+	private Date birthday;
+
 	protected Customer() {
 	}
 
-	public Customer(String firstName, String lastName) {
+	public Customer(String email) {
+		this.setEmail(email);
+	}
+
+	public Customer(String email, String firstName, String lastName) {
+		this(email);
 		this.firstName = firstName;
 		this.lastName = lastName;
+	}
+
+	public Customer(String email, String firstName, String lastName, Date birthday) {
+		this(email);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.setBirthday(birthday);
 	}
 
 	public Long getId() {
@@ -43,10 +61,31 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("Customer[id=%d, firstName='%s', lastName='%s']", id,
-				firstName, lastName);
+
+	public Date getBirthday() {
+		return birthday;
 	}
 
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", birthday=" + birthday +
+				'}';
+	}
 }
