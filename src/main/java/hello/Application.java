@@ -8,6 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Calendar;
+import java.util.Date;
+
 @SpringBootApplication
 public class Application {
 
@@ -26,6 +29,7 @@ public class Application {
 			repository.save(new Customer("kim@bauer.com", "Kim", "Bauer"));
 			repository.save(new Customer("david@palmer.com", "David", "Palmer"));
 			repository.save(new Customer("michelle@dessler.com", "Michelle", "Dessler"));
+			repository.save(new Customer("david@langheiter.com", "David", "Langheiter", new Date(100, Calendar.APRIL, 30)));
 
 			// fetch all customers
 			log.info("Customers found with findAll():");
