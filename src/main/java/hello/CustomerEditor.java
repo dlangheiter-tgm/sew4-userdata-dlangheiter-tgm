@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -57,7 +58,7 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 		this.repository = repository;
 
 		email.setRequired(true);
-		birthday.setMax(LocalDate.now());
+		//birthday.setMax(LocalDate.now());
 
 		add(email, firstName, lastName, birthday, actions);
 
@@ -66,6 +67,10 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 		binder.forField(email)
 				.withValidator(new EmailValidator("This doesn't look like a valid email address"))
 				.bind(Customer::getEmail, Customer::setEmail);
+
+		binder.forField(birthday)
+				.withValidator(date -> date == null || date.isBefore(LocalDate.now()), "Birthday must be before today")
+				.bind(Customer::getBirthday, Customer::setBirthday);
 
 		// Configure and style components
 		setSpacing(true);
@@ -88,8 +93,13 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 	}
 
 	void save() {
-		repository.save(customer);
-		changeHandler.onChange();
+		try {
+			binder.writeBean(customer);
+			repository.save(customer);
+			changeHandler.onChange();
+		} catch (ValidationException e) {
+
+		}
 	}
 
 	public interface ChangeHandler {
