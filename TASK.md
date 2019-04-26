@@ -23,12 +23,12 @@ Der Code wird mittels ``gradle bootRun`` und ``gradle test`` auf entsprechende F
 Gruppengrösse: 1 Person
 ### Grundanforderungen **überwiegend erfüllt**
 - [ ] Dokumentation eines einfachen Benutzerverzeichnisses
-- [ ] Erweiterung des bestehenden Codes mit den Elementen Email (verpflichtend) und Geburtsdatum (optional)
-- [ ] Persistierung der Daten in einem dateibasierten Datenbanksystems (z.B. Sqlite)
+- [x] Erweiterung des bestehenden Codes mit den Elementen Email (verpflichtend) und Geburtsdatum (optional)
+- [x] Persistierung der Daten in einem dateibasierten Datenbanksystems (z.B. Sqlite)
 
 ### Grundanforderungen **zur Gänze erfüllt**
-- [ ] Validierung der Eingabe von Email (gültige Addresse) und Geburtsdatum (Vergangenheit)
-- [ ] Schreiben einer sprechenden Fehlermeldung im UserInterface
+- [x] Validierung der Eingabe von Email (gültige Addresse) und Geburtsdatum (Vergangenheit)
+- [x] Schreiben einer sprechenden Fehlermeldung im UserInterface
 - [ ] Test der funktionalen Anforderungen (Anzeige, Einfügen, Löschen und Updaten)
 
 ## Quellen
