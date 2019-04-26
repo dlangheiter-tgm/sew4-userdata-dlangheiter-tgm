@@ -39,4 +39,5 @@ dependencies {
     compile("com.h2database:h2")
     testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    compile group: 'com.vaadin', name: 'vaadin-date-picker-flow', version: '1.3.0'
 }

@@ -3,6 +3,7 @@ package hello;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyNotifier;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -11,6 +12,8 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDate;
 
 /**
  * A simple example to introduce building forms. As your real application is probably much
@@ -34,6 +37,9 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 	/* Fields to edit properties in Customer entity */
 	TextField firstName = new TextField("First name");
 	TextField lastName = new TextField("Last name");
+	TextField email = new TextField("Email");
+	DatePicker birthday = new DatePicker("Birthday");
+
 
 	/* Action buttons */
 	// TODO why more code?
@@ -49,7 +55,10 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 	public CustomerEditor(CustomerRepository repository) {
 		this.repository = repository;
 
-		add(firstName, lastName, actions);
+		email.setRequired(true);
+		birthday.setMax(LocalDate.now());
+
+		add(email, firstName, lastName, birthday, actions);
 
 		// bind using naming convention
 		binder.bindInstanceFields(this);
@@ -106,7 +115,7 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 		setVisible(true);
 
 		// Focus first name initially
-		firstName.focus();
+		email.focus();
 	}
 
 	public void setChangeHandler(ChangeHandler h) {

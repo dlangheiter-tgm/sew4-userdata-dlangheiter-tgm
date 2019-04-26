@@ -1,8 +1,10 @@
 package hello;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Customer {
@@ -18,8 +20,7 @@ public class Customer {
 	@NotNull
 	private String email;
 
-	@Temporal(TemporalType.DATE)
-	private Date birthday;
+	private LocalDate birthday;
 
 	protected Customer() {
 	}
@@ -34,7 +35,7 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	public Customer(String email, String firstName, String lastName, Date birthday) {
+	public Customer(String email, String firstName, String lastName, LocalDate birthday) {
 		this(email);
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -62,11 +63,11 @@ public class Customer {
 	}
 
 
-	public Date getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 
