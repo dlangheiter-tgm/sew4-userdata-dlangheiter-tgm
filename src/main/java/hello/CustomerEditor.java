@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,9 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 
 		// bind using naming convention
 		binder.bindInstanceFields(this);
+		binder.forField(email)
+				.withValidator(new EmailValidator("This doesn't look like a valid email address"))
+				.bind(Customer::getEmail, Customer::setEmail);
 
 		// Configure and style components
 		setSpacing(true);
